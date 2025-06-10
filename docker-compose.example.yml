@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: oumate
+      POSTGRES_PASSWORD: Oum@psql.
+      POSTGRES_DB: food_recommendation
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: flask run --host=0.0.0.0 --port=5000
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - '5000:5000'
+    environment:
+      FLASK_APP: mini_food_recommendation_backend.app:create_app
+      FLASK_ENV: development
+      DATABASE_URL: postgresql://oumate:Oum%40psql.@db:5432/food_recommendation
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

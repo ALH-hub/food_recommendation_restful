@@ -1,0 +1,13 @@
+.env
+# Ignore the .env file in the mini_food_recommendation_backend directory
+docker-compose.yml
+entrypoint.sh
+__pycache__/
+# Ignore Python cache directories
+*.pyc
+# Ignore Python bytecode files
+*.pyo
+# Ignore Python optimized files
+*.pyd
+.vscode/
+.venv/
