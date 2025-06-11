@@ -724,6 +724,11 @@ This schema supports user profiles, foods, ingredients, consumption history, foo
 
 ---
 
+## Author Information
+
+- Name: ALHADJI OUMATE
+- Student ID: 22U2033
+
 ## License
 
 This project is for educational purposes.
