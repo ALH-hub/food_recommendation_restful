@@ -27,6 +27,7 @@ docker compose up --build
 2. **Apply database migrations:**
 
 ```bash
+docker compose exec web flask db migrate -m 'Descripton of change'
 docker compose exec web flask db upgrade
 ```
 
@@ -495,6 +496,123 @@ The backend will be available at [http://localhost:5000](http://localhost:5000).
 
 ---
 
+## Weekly Plan Routes
+
+- `POST /weekly_plan/<person_id>` — Set or update a person's weekly food plan.
+  **Request Body:**
+
+  ```json
+  {
+    "plan": {
+      "Monday": [1, 2],
+      "Tuesday": [3],
+      "Wednesday": [],
+      "Thursday": [4],
+      "Friday": [5],
+      "Saturday": [],
+      "Sunday": [6]
+    }
+  }
+  ```
+
+  (Where numbers are food IDs.)
+  **Response:**
+
+  ```json
+  { "message": "Weekly plan set successfully" }
+  ```
+
+- `GET /weekly_plan/<person_id>` — Retrieve a person's weekly food plan.
+  **Response:**
+
+  ```json
+  {
+    "person_id": 1,
+    "plan": {
+      "Monday": [
+        { "food_id": 1, "food_name": "Pizza" },
+        { "food_id": 2, "food_name": "Salad" }
+      ],
+      "Tuesday": [{ "food_id": 3, "food_name": "Burger" }]
+      // ... other days
+    }
+  }
+  ```
+
+- `DELETE /weekly_plan/<person_id>` — Delete a person's weekly food plan.
+  **Response:**
+  ```json
+  { "message": "Weekly plan deleted successfully" }
+  ```
+
+---
+
+### Buffet Management Routes
+
+- `POST /buffet`— Create a buffet plan for an event.
+  **Request Body:**
+
+  ```json
+  {
+    "event_name": "Birthday Party",
+    "guest_count": 50,
+    "food_ids": [1, 2, 3]
+  }
+  ```
+
+  **Response:**
+
+  ```json
+  { "message": "Buffet plan created", "buffet_id": 1 }
+  ```
+
+- `GET /buffet` — Get list of all buffet planned.
+  **Response:**
+
+  ```json
+  [
+    {
+      "buffet_id": 1,
+      "event_name": "Event 1",
+      "foods": [
+        {
+          "food_id": 97,
+          "food_name": "Food 47",
+          "servings": 52
+        },
+        {
+          "food_id": 93,
+          "food_name": "Food 43",
+          "servings": 52
+        }
+      ],
+      "guest_count": 52
+    }
+  ]
+  ```
+
+- `GET /buffet/<buffet_id>` — Retrieve a buffet plan by its ID.
+  **Response:**
+
+  ```json
+  {
+    "event_name": "Birthday Party",
+    "guest_count": 50,
+    "foods": [
+      { "food_id": 1, "food_name": "Pizza", "servings": 50 },
+      { "food_id": 2, "food_name": "Salad", "servings": 50 },
+      { "food_id": 3, "food_name": "Burger", "servings": 50 }
+    ]
+  }
+  ```
+
+- `DELETE /buffet/<buffet_id>` — Delete a buffet plan by its ID.
+  **Response:**
+  ```json
+  { "message": "Buffet plan deleted successfully" }
+  ```
+  ***
+
 ## Database Model
 
 The Mini Food Recommendation Backend uses the following relational model:
@@ -505,8 +623,9 @@ The Mini Food Recommendation Backend uses the following relational model:
   - `name`: String, required
   - `age`: Integer, optional
   - **Relationships:**
-    - Many-to-many with Food (favorite foods)
+    - Many-to-many with Food (favorites)
     - One-to-many with FoodConsumption
+    - One-to-many with WeeklyPlan
 
 - **Food**
 
@@ -514,9 +633,11 @@ The Mini Food Recommendation Backend uses the following relational model:
   - `name`: String, required
   - **Relationships:**
     - Many-to-many with Ingredient
-    - Many-to-many with Person (favorite foods)
+    - Many-to-many with Person (favorites)
     - One-to-many with FoodConsumption
     - One-to-many with FoodImage
+    - One-to-many with WeeklyPlan
+    - One-to-many with BuffetFood
 
 - **Ingredient**
 
@@ -536,6 +657,7 @@ The Mini Food Recommendation Backend uses the following relational model:
     - Many-to-one with Food
 
 - **FoodImage**
+
   - `id`: Integer, primary key
   - `food_id`: Foreign key to Food
   - `image_data`: Binary
@@ -543,24 +665,54 @@ The Mini Food Recommendation Backend uses the following relational model:
   - **Relationships:**
     - Many-to-one with Food
 
+- **WeeklyPlan**
+
+  - `id`: Integer, primary key
+  - `person_id`: Foreign key to Person
+  - `day_of_week`: String (e.g., "Monday")
+  - `food_id`: Foreign key to Food
+  - **Relationships:**
+    - Many-to-one with Person
+    - Many-to-one with Food
+
+- **BuffetPlan**
+
+  - `id`: Integer, primary key
+  - `event_name`: String
+  - `guest_count`: Integer
+  - `created_at`: DateTime
+  - **Relationships:**
+    - One-to-many with BuffetFood
+
+- **BuffetFood**
+  - `id`: Integer, primary key
+  - `buffet_id`: Foreign key to BuffetPlan
+  - `food_id`: Foreign key to Food
+  - `servings`: Integer
+  - **Relationships:**
+    - Many-to-one with BuffetPlan
+    - Many-to-one with Food
+
 **Associations:**
 
-- `person_food`: Join table for Person and Food (favorite foods)
+- `person_food`: Join table for Person and Food (favorites)
 - `food_ingredient`: Join table for Food and Ingredient
 
 **Diagram:**
 
 ```
 Person *---< FoodConsumption >---* Food *---* Ingredient
-   |                                 |
-   |                                 |
-   *-----------* person_food         *---< FoodImage
+   |         ^                   |   |         ^
+   |         |                   |   |         |
+   *---* person_food             |   *---< FoodImage
+   |                             |
+   *---< WeeklyPlan >---*        *---< BuffetFood >---* BuffetPlan
 ```
 
 - `*---*` = many-to-many
 - `*---<` = one-to-many
 
-This schema supports user profiles, foods, ingredients, consumption history, food images, and recommendations.
+This schema supports user profiles, foods, ingredients, consumption history, food images, weekly meal planning, buffet management, and recommendations.
 
 ---
 
