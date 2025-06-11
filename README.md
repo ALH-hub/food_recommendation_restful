@@ -13,6 +13,8 @@ This project is a Flask-based backend for a food recommendation system, using Po
 ### Prerequisites
 
 - Docker and Docker Compose installed
+- Modify the docker-compose.example.yml file with your credetials
+- Rename the file docker-compose.example.yml to docker-compose.yml
 
 ### Setup
 
@@ -498,6 +500,7 @@ The backend will be available at [http://localhost:5000](http://localhost:5000).
 The Mini Food Recommendation Backend uses the following relational model:
 
 - **Person**
+
   - `id`: Integer, primary key
   - `name`: String, required
   - `age`: Integer, optional
@@ -506,6 +509,7 @@ The Mini Food Recommendation Backend uses the following relational model:
     - One-to-many with FoodConsumption
 
 - **Food**
+
   - `id`: Integer, primary key
   - `name`: String, required
   - **Relationships:**
@@ -515,12 +519,14 @@ The Mini Food Recommendation Backend uses the following relational model:
     - One-to-many with FoodImage
 
 - **Ingredient**
+
   - `id`: Integer, primary key
   - `name`: String, required
   - **Relationships:**
     - Many-to-many with Food
 
 - **FoodConsumption**
+
   - `id`: Integer, primary key
   - `user_id`: Foreign key to Person
   - `food_id`: Foreign key to Food
@@ -538,6 +544,7 @@ The Mini Food Recommendation Backend uses the following relational model:
     - Many-to-one with Food
 
 **Associations:**
+
 - `person_food`: Join table for Person and Food (favorite foods)
 - `food_ingredient`: Join table for Food and Ingredient
 
