@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 from ..services.food_recommendation import FoodRecommendationService
 from flask import Blueprint, request, jsonify
 from ..models.person import Person

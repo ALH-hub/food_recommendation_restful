@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 from flask import Blueprint, request, jsonify
 from ..services.allergy_probability import AllergyProbabilityService
 

@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 from ..config import db
 
 class WeeklyPlan(db.Model):

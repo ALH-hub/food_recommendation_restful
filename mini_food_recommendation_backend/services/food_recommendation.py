@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 # food recommendation service for a person based on their food consumption history
 from ..models.food_consumption import FoodConsumption
 from ..models.person import Person

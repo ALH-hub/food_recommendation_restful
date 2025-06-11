@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 from flask import Blueprint, request, jsonify
 from ..models.food import Food
 from ..models.buffet_manage import BuffetPlan, BuffetFood

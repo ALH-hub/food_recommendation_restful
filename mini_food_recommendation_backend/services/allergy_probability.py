@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 from ..models.food_consumption import FoodConsumption
 
 class AllergyProbabilityService:

@@ -1,4 +1,6 @@
-# Place this script in your project root or run in flask shell
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 import random
 import datetime
 from mini_food_recommendation_backend.app import app

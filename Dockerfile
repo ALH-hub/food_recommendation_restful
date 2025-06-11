@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 FROM python:3.12-slim
 
 WORKDIR /app
@@ -5,7 +8,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-#COPY migrations /app/migrations
+# COPY migrations /app/migrations
 
 COPY . .
 

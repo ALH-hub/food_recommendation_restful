@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 from flask import Flask, jsonify
 from flask_migrate import Migrate
 from .config import db

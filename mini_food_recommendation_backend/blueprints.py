@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 from .routes.foods import foods_bp
 from .routes.persons import persons_bp
 from .routes.food_recommendation import rec_bp as food_recommendation_bp

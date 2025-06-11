@@ -1,3 +1,6 @@
+# AUTHOR: ALHADJI OUMATE
+# STUDENT ID: 22U2033
+
 from .person import Person
 from .food import Food, Ingredient
 from .food_consumption import FoodConsumption
