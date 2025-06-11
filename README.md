@@ -324,18 +324,46 @@ The backend will be available at [http://localhost:5000](http://localhost:5000).
 ### Food Consumption
 
 - `GET /consumptions` — List all food consumption records.
+  **Response:**
+  ```json
+  [
+    {
+      "id": 1,
+      "user_id": 1,
+      "food_id": 2,
+      "timestamp": "2025-06-11T12:00:00"
+    }
+  ]
+  ```
 - `GET /consumptions/<id>` — Get details of a specific consumption record.
-- `POST /consumptions` — Add a new food consumption record.
-  **Body:**
+  **Response:**
   ```json
   {
+    "id": 1,
+    "user_id": 1,
+    "food_id": 2,
+    "timestamp": "2025-06-11T12:00:00"
+  }
+  ```
+- `POST /consumptions` — Add a new food consumption record.
+  **Request Body:**
+  ```json
+  {
+    "person_id": 1,
+    "food_id": 2
+  }
+  ```
+  **Response:**
+  ```json
+  {
+    "id": 1,
     "user_id": 1,
     "food_id": 2,
     "timestamp": "2025-06-11T12:00:00"
   }
   ```
 - `PUT /consumptions/<id>` — Update a food consumption record.
-  **Body:**
+  **Request Body:**
   ```json
   {
     "user_id": 1,
@@ -344,6 +372,71 @@ The backend will be available at [http://localhost:5000](http://localhost:5000).
   }
   ```
 - `DELETE /consumptions/<id>` — Delete a food consumption record.
+  **Response:**
+  ```json
+  {
+    "message": "Food consumption deleted successfully"
+  }
+  ```
+- `GET /consumptions/person/<person_id>` — List all consumption records for a specific person.
+  **Response:**
+  ```json
+  [
+    {
+      "id": 1,
+      "user_id": 1,
+      "food_id": 2,
+      "timestamp": "2025-06-11T12:00:00"
+    }
+  ]
+  ```
+- `GET /consumptions/food/<food_id>` — List all consumption records for a specific food.
+  **Response:**
+  ```json
+  [
+    {
+      "id": 1,
+      "user_id": 1,
+      "food_id": 2,
+      "timestamp": "2025-06-11T12:00:00"
+    }
+  ]
+  ```
+- `GET /consumptions/person/<person_id>/food/<food_id>` — Get a specific consumption record for a person and food.
+  **Response:**
+  ```json
+  {
+    "id": 1,
+    "user_id": 1,
+    "food_id": 2,
+    "timestamp": "2025-06-11T12:00:00"
+  }
+  ```
+- `POST /consumptions/person/<person_id>/food/<food_id>` — Add a consumption record for a person and food.
+  **Response:**
+  ```json
+  {
+    "id": 1,
+    "user_id": 1,
+    "food_id": 2,
+    "timestamp": "2025-06-11T12:00:00"
+  }
+  ```
+- `DELETE /consumptions/person/<person_id>/food/<food_id>` — Delete a consumption record for a person and food.
+  **Response:**
+  ```json
+  {
+    "message": "Food consumption deleted successfully"
+  }
+  ```
+- `GET /consumptions/person/<person_id>/foods` — List all foods consumed by a person.
+  **Response:**
+  ```json
+  [
+    { "id": 1, "name": "Pizza" },
+    { "id": 2, "name": "Salad" }
+  ]
+  ```
 
 ### Food Images
 
