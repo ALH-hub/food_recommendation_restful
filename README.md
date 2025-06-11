@@ -8,6 +8,7 @@ This project is a Flask-based backend for a food recommendation system, using Po
 
 - Ubuntu 24.04.2 LTS
 - Database: postgresql v16
+- Python 3.12.3
 
 ### Prerequisites
 
@@ -489,6 +490,70 @@ The backend will be available at [http://localhost:5000](http://localhost:5000).
   ```json
   { "error": "Error message" }
   ```
+
+---
+
+## Database Model
+
+The Mini Food Recommendation Backend uses the following relational model:
+
+- **Person**
+  - `id`: Integer, primary key
+  - `name`: String, required
+  - `age`: Integer, optional
+  - **Relationships:**
+    - Many-to-many with Food (favorite foods)
+    - One-to-many with FoodConsumption
+
+- **Food**
+  - `id`: Integer, primary key
+  - `name`: String, required
+  - **Relationships:**
+    - Many-to-many with Ingredient
+    - Many-to-many with Person (favorite foods)
+    - One-to-many with FoodConsumption
+    - One-to-many with FoodImage
+
+- **Ingredient**
+  - `id`: Integer, primary key
+  - `name`: String, required
+  - **Relationships:**
+    - Many-to-many with Food
+
+- **FoodConsumption**
+  - `id`: Integer, primary key
+  - `user_id`: Foreign key to Person
+  - `food_id`: Foreign key to Food
+  - `timestamp`: DateTime
+  - **Relationships:**
+    - Many-to-one with Person
+    - Many-to-one with Food
+
+- **FoodImage**
+  - `id`: Integer, primary key
+  - `food_id`: Foreign key to Food
+  - `image_data`: Binary
+  - `content_type`: String (e.g., "image/png")
+  - **Relationships:**
+    - Many-to-one with Food
+
+**Associations:**
+- `person_food`: Join table for Person and Food (favorite foods)
+- `food_ingredient`: Join table for Food and Ingredient
+
+**Diagram:**
+
+```
+Person *---< FoodConsumption >---* Food *---* Ingredient
+   |                                 |
+   |                                 |
+   *-----------* person_food         *---< FoodImage
+```
+
+- `*---*` = many-to-many
+- `*---<` = one-to-many
+
+This schema supports user profiles, foods, ingredients, consumption history, food images, and recommendations.
 
 ---
 
