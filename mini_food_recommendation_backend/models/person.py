@@ -9,6 +9,7 @@ class Person(db.Model):
 
     # Relationships
     food_consumptions = db.relationship('FoodConsumption', back_populates='person')
+    weekly_plans = db.relationship('WeeklyPlan', back_populates='person')
 
     def __repr__(self):
         return f'<Person {self.id} - {self.name}, Age: {self.age}>'
