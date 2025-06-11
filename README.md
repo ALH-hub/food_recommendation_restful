@@ -4,6 +4,11 @@ This project is a Flask-based backend for a food recommendation system, using Po
 
 ## Getting Started
 
+### System details
+
+- Ubuntu 24.04.2 LTS
+- Database: postgresql v16
+
 ### Prerequisites
 
 - Docker and Docker Compose installed
