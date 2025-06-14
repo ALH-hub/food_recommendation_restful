@@ -13,8 +13,7 @@ This project is a Flask-based backend for a food recommendation system, using Po
 ### Prerequisites
 
 - Docker and Docker Compose installed
-- Modify the docker-compose.example.yml file with your credetials
-- Rename the file docker-compose.example.yml to docker-compose.yml
+- Modify the .env.example file with your credentials and rename it to .env
 
 ### Setup
 
