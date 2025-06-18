@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [Local Setup (Without Docker)](#local-setup-without-docker)
 - [Available Routes](#available-routes)
   - [General](#general)
   - [Persons](#persons)
@@ -12,11 +13,66 @@
   - [Food Recommendation Routes](#food-recommendation-routes)
   - [Allergy Probability Routes](#allergy-probability-routes)
   - [Weekly Plan Routes](#weekly-plan-routes)
+  - [Local Setup (Without Docker)](#local-setup-without-docker)
   - [Buffet Management Routes](#buffet-management-routes)
 - [Database Model](#database-model)
 - [Notes](#notes)
 - [Author Information](#author-information)
 - [License](#license)
+
+  ***
+
+  ## Local Setup (Without Docker)
+
+  To run this project locally without Docker, follow these steps:
+
+  1. **Clone the repository:**
+
+  ```bash
+  git clone <repository-url>
+  cd mini_food_recommendation_backend
+  ```
+
+  2. **Create and activate a virtual environment:**
+
+  ```bash
+  python3 -m venv venv
+  source venv/bin/activate
+  ```
+
+  3. **Install dependencies:**
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+  4. **Set up environment variables:**
+
+  - Create a `.env` file in the project root with your configuration (e.g., database URL).
+
+  5. **Set up the PostgreSQL database:**
+
+  - Make sure PostgreSQL is running.
+  - Create a database (e.g., `mini_food_db`).
+  - Update your `.env` or configuration to point to this database.
+
+  6. **Run database migrations:**
+
+  ```bash
+  flask db upgrade
+  ```
+
+  7. **Start the Flask server:**
+
+  ```bash
+  flask run
+  ```
+
+  8. **Access the API:**
+
+  - The API will be available at `http://localhost:5000/`.
+
+  ***
 
 This project is a Flask-based backend for a food recommendation system, using PostgreSQL as the database and SQLAlchemy for ORM. It is containerized with Docker for easy deployment.
 
